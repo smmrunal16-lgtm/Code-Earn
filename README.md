@@ -1,57 +1,55 @@
 # CodeEarn — Learn, Build & Earn
 
-A responsive, API-free coding learning and digital resource storefront built with PHP and SQLite.
+A React + Node.js + SQLite coding education and digital resource platform. No AI services, third-party APIs or payment gateway integrations are used.
 
 ## Features
-- Student registration, login and session-based dashboard
-- Course catalogue across C, C++, Java, Python, JavaScript, HTML/CSS, PHP, SQL, C#, Kotlin, Go and Ruby
-- Course enrollment requests and lesson-outline curriculum
-- Manual UPI reference submission with admin verification (no payment gateway/API)
+- React single-page interface with responsive dark design
+- Node.js + Express application server
+- SQLite database with automatic course/product seed data
+- Student registration, login and personal dashboard
+- Courses for C, C++, Java, Python, JavaScript, HTML/CSS, PHP, SQL, C#, Kotlin, Go and Ruby
+- Enrollment requests and structured course curriculum
+- Manual UPI transaction-reference submission and admin verification
 - Digital resource catalogue and order requests
-- Admin dashboard to approve course access, verify payment references and process product orders
-- Printable platform learning certificate (browser Print → Save as PDF)
-- Responsive dark interface
-- SQLite database created automatically on first run
-- CSRF-protected forms and password hashing
+- Admin dashboard for payment, enrollment and order approvals
+- Printable platform-issued course certificates
+- Password hashing with bcrypt and SQLite-backed sessions
 
 ## Requirements
-- PHP 8.1+
-- PHP PDO SQLite extension enabled
-- A PHP web host with write permission for the `data/` directory
-
-> GitHub Pages does not execute PHP. Deploy this project to a PHP hosting provider or run it locally with PHP.
+- Node.js 20 or newer
+- npm
+- A host that supports a persistent writable disk for SQLite
 
 ## Run locally
-1. Install PHP 8.1+ with PDO SQLite enabled.
-2. From the project directory run:
-   ```bash
-   php -S localhost:8000
-   ```
-3. Open http://localhost:8000 in your browser.
-4. Register a student account. The SQLite database is created at `data/codeearn.sqlite`.
-
-## Create the first administrator
-Run this once in the project directory from a terminal:
 ```bash
-php create-admin.php admin@example.com "Replace-With-A-Long-Unique-Password"
+npm install
+npm run dev
 ```
-Then sign in using that email and password. Delete `create-admin.php` from the deployed server after creating the administrator. Do not commit real passwords.
+Open the Vite address shown in the terminal (normally http://localhost:5173). The Express server runs on http://localhost:3000 and Vite proxies internal `/api` requests to it.
 
-## Manual payment workflow
-There is intentionally no payment gateway or external API. A student can submit a UPI transaction reference after paying using payment details supplied by the platform owner. An administrator checks the transaction independently and approves it in the admin dashboard. Never ask students to share UPI PINs, OTPs or passwords. Do not mark a payment verified based only on a screenshot or unverified claim.
+## Production
+```bash
+npm install
+npm run build
+NODE_ENV=production SESSION_SECRET="replace-with-a-long-random-secret" npm start
+```
+The Express server serves the built React app from `dist/`. Set `PORT` if your host requires a specific port. Use HTTPS and a persistent disk for the `data/` directory. Do not deploy on static-only hosting such as GitHub Pages.
 
-## Important scope notes
-- Course pages currently provide structured curriculum outlines, not a complete video/lesson hosting system.
-- Certificates are platform-issued printable learning records; they are not government or university accreditations.
-- Product orders are request records. The admin must manually verify payment and arrange delivery of the digital file; downloadable product delivery is not automated yet.
-- Add your own verified UPI/payment instructions before accepting real orders.
+## Create an administrator
+Run once on the server, from the project root:
+```bash
+npm run admin -- admin@example.com "a-unique-password-of-at-least-12"
+```
+Use the supplied email and password to sign in. Keep credentials private. Set a strong random `SESSION_SECRET` environment variable in production.
 
-## Security and deployment
-- Use HTTPS in production.
-- Keep the `data/` directory writable by PHP and block direct public access to it at the web-server level.
-- Back up the SQLite database regularly.
-- Use a unique administrator password and remove `create-admin.php` after setup.
-- Review and test the application on your chosen PHP host before accepting payments.
+## Payments and digital products
+This project deliberately has no payment gateway integration and makes no calls to external APIs. Students submit a UPI transaction reference after paying using payment instructions provided by the site owner. The administrator must independently verify the transaction before approving course access. Never ask for UPI PINs or OTPs. Product orders are request records; the administrator must manually arrange delivery of purchased files.
+
+## Scope notes
+- Course pages currently contain structured curriculum outlines; full lesson videos/content still need to be added.
+- Certificates are platform-issued learning records, not government or university accreditations.
+- Digital product file delivery is not automated yet.
+- Configure your own verified payment instructions before accepting real orders.
 
 ## License
 Apache License 2.0. See [LICENSE](LICENSE).
