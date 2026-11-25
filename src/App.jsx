@@ -1,4 +1,4 @@
-import React,{useEffect,useMemo,useState} from 'react';
+import React,{useEffect,useState} from 'react';
 import {BrowserRouter,Routes,Route,Link,useNavigate,useParams} from 'react-router-dom';
 import {motion,AnimatePresence} from 'framer-motion';
 import {ArrowRight,ArrowUpRight,BookOpen,Code2,ShoppingBag,LayoutDashboard,LogIn,Menu,X,GraduationCap,ShieldCheck,Download,Search,CheckCircle2,Globe2,PlayCircle,Mail,Clock3,Star,Layers,ChevronRight,LogOut,UserRound,FileBadge, Sparkles} from 'lucide-react';
@@ -36,4 +36,4 @@ function Admin({user,notify}){const [d,setD]=useState({payments:[],enrollments:[
 function About(){return <Page><section className="inner-hero"><div className="eyebrow-v2">ABOUT CODEEARN</div><h1>Education for the <span>builders.</span></h1><p>CodeEarn is a learning platform concept designed to make programming education structured, approachable and practical.</p></section><div className="about-grid"><img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85" alt="Team collaborating"/><div><h2>Learn with purpose.</h2><p>Explore programming languages, follow organized course outlines, practice with projects and keep your learning records in one place.</p><p>Our goal is simple: help students move from watching tutorials to building things they can show.</p><Link to="/courses" className="primary-btn">Explore learning paths <ArrowRight/></Link></div></div></Page>}
 function Contact(){return <Page><section className="inner-hero"><div className="eyebrow-v2">GET IN TOUCH</div><h1>Let's build something <span>great.</span></h1><p>For course, order or account questions, contact the platform administrator.</p></section><div className="contact-card"><Mail size={28}/><h2>Contact CodeEarn</h2><p>Set your official support email in the platform before publishing this page.</p><span className="state">Support contact not configured yet</span></div></Page>}
 function NotFound(){return <Page><div className="empty-state"><h1>404</h1><h2>This page wandered off.</h2><Link to="/" className="primary-btn">Back home <ArrowRight/></Link></div></Page>}
-createRoot(document.getElementById('root')).render(<App/>);
+export default App;
