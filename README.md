@@ -1,6 +1,6 @@
 # CodeEarn — Learn, Build & Earn
 
-A React + Node.js + SQLite coding education and digital resource platform. No AI services, third-party APIs or payment gateway integrations are used.
+A React + Node.js + SQLite coding education and digital resource platform. It uses no AI services or payment gateway; Google and Microsoft OAuth/Drive integrations are optional and require owner credentials.
 
 ## Features
 - Separate routes/pages for Home, Courses, Course Details, Digital Store, About, Contact, Login, Register, Student Dashboard, Certificates and Admin
