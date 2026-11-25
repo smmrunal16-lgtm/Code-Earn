@@ -47,7 +47,7 @@ Use the supplied email and password to sign in. Keep credentials private. Set a 
 This project deliberately has no payment gateway integration and makes no calls to external APIs. Students submit a UPI transaction reference after paying using payment instructions provided by the site owner. The administrator must independently verify the transaction before approving course access. Never ask for UPI PINs or OTPs. Product orders are request records; the administrator must manually arrange delivery of purchased files.
 
 ## Integrations
-- Google and Microsoft sign-in / cloud certificate storage are not connected yet. These require OAuth app registration and credentials from the account owner; do not place client secrets in frontend code or commit them to GitHub.
+- Google and Microsoft sign-in plus Drive/OneDrive certificate export are implemented; they require owner-provided OAuth app credentials in environment variables before they can be used.
 - Course and product photography is loaded from static image URLs; no image API is called.
 
 ## Scope notes
@@ -58,3 +58,26 @@ This project deliberately has no payment gateway integration and makes no calls 
 
 ## License
 Apache License 2.0. See [LICENSE](LICENSE).
+
+
+## Google & Microsoft sign-in and certificate cloud storage
+
+CodeEarn supports Google and Microsoft OAuth sign-in. The selected provider also grants file access so students can save approved course certificates as PDF files to Google Drive or OneDrive and create a view-sharing link.
+
+### Required environment variables
+
+Copy `.env.example` to `.env` locally, or configure the values in your hosting provider's environment settings. Never commit the real `.env` file or share client secrets in chat.
+
+- `APP_URL`: public base URL.
+- `SESSION_SECRET`: long random session secret.
+- `TOKEN_ENCRYPTION_KEY`: long random key used to encrypt OAuth tokens in SQLite.
+- `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_CALLBACK_URL`.
+- `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET`, `MICROSOFT_CALLBACK_URL`.
+
+**Google:** Create an OAuth 2.0 Web application in Google Cloud Console, enable the Google Drive API, and register the exact redirect URI `https://YOUR_DOMAIN/auth/google/callback`. The app requests OpenID/email/profile and `drive.file` access.
+
+**Microsoft:** Register a Web app in Microsoft Entra and add `https://YOUR_DOMAIN/auth/microsoft/callback`. Configure delegated Microsoft Graph permissions `User.Read` and `Files.ReadWrite`; offline access is requested for token refresh.
+
+After credentials are configured, students can use Google or Microsoft on the login/register page. The connected provider account is available for certificate storage. In the Student Dashboard, approved courses show **Save to Drive** and **Save to OneDrive** actions. CodeEarn generates a PDF, uploads it and returns a share link. Anyone with the link may be able to view the certificate, so share carefully.
+
+For local development, register `http://localhost:3000/auth/google/callback` and `http://localhost:3000/auth/microsoft/callback`. Cloud integration is not active until valid credentials and callback URLs are configured. Certificates are platform-issued and are not government, university or accreditation-body certifications.
