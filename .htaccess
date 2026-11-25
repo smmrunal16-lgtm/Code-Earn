@@ -1,0 +1,4 @@
+Options -Indexes
+<FilesMatch "^(\.env|\.gitignore|README\.md|LICENSE|create-admin\.php)$">
+  Require all denied
+</FilesMatch>
