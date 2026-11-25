@@ -58,3 +58,28 @@ html{scroll-behavior:smooth}
 @media(pointer:coarse){.cursor-fx{display:none}}
 @media(prefers-reduced-motion:reduce){.ambient-orb,.floating-code,.floating-stat{animation:none!important}.cursor-fx{display:none}}
 @media(max-width:620px){.ambient-orb{filter:blur(55px);opacity:.18}.ambient-grid{background-size:38px 38px}}
+
+/* Final interaction polish */
+.app-content{position:relative;z-index:1;min-height:65vh}
+.site-footer{position:relative;z-index:1}
+.ambient-background{z-index:0}
+.scroll-progress{position:fixed;z-index:120;left:0;top:0;height:3px;width:100%;transform:scaleX(0);transform-origin:left center;background:linear-gradient(90deg,#19a995,#7287ed,#bd85db);box-shadow:0 0 14px #49cbb8a0;pointer-events:none}
+.cursor-halo{transition:width .22s ease,height .22s ease,background .22s ease,border-color .22s ease}
+body:has(a:hover) .cursor-halo,body:has(button:hover) .cursor-halo{width:48px;height:48px;margin:-24px 0 0 -24px;background:#55e6d42b;border-color:#118f87}
+a,button,.course-tile,.product-tile{ -webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #53cdbb80;outline-offset:3px}
+.page-wrap{animation:page-enter .55s cubic-bezier(.2,.75,.25,1) both}
+@keyframes page-enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.course-tile,.product-tile,.dashboard-panel,.enroll-card,.contact-card{transform-style:preserve-3d;will-change:transform}
+.course-tile:hover,.product-tile:hover{transform:translateY(-8px) perspective(900px) rotateX(.6deg);box-shadow:0 25px 55px #1737521c}
+.tile-image{background:linear-gradient(120deg,#dcefe9,#e8e9ff)}
+.tile-image img{filter:saturate(.92);transition:transform .75s cubic-bezier(.2,.8,.2,1),filter .45s}
+.course-tile:hover .tile-image img{transform:scale(1.075);filter:saturate(1.13)}
+.product-art{transition:transform .45s cubic-bezier(.2,.8,.2,1),filter .45s}
+.product-tile:hover .product-art{transform:scale(1.025);filter:saturate(1.15)}
+.nav-links a,.footer-links a{transition:color .2s ease,transform .2s ease}
+.nav-links a:hover,.footer-links a:hover{transform:translateY(-1px)}
+.primary-btn:active,.secondary-btn:active,.nav-cta:active{transform:translateY(1px) scale(.985)}
+.toast{position:fixed;z-index:90;top:90px;right:24px;display:flex;align-items:center;gap:12px;max-width:min(420px,calc(100vw - 32px));padding:13px 17px;border:1px solid #b9e9df;border-radius:12px;background:#f1fffb;color:#176d63;box-shadow:0 14px 40px #102d401c;font-size:12px;font-weight:700;text-align:left;cursor:pointer}
+@media(max-width:720px){.cursor-fx{display:none}.scroll-progress{height:2px}.toast{top:78px;right:12px}}
+@media(prefers-reduced-motion:reduce){.page-wrap{animation:none}.course-tile,.product-tile,.tile-image img,.product-art{transition:none}}
